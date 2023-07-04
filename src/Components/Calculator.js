@@ -22,10 +22,14 @@ export default function Calculator(props){
    
         if(typeof content === "number" ){
             setMain(prev=>{return prev.toString()+content.toString()})
-        }else{ //EXTRA CONDITION FOR DECIMAL, REGEX TO MAKE IT MAKE SENSE
+        }else if(content == "."){
+            //HANDLE DECIMAL WITH REGEX
+        }else if(operations[content]){ 
             setMemory(prev=>{operations[content](prev,main)})
             setMain(0)
             setOperation(content)
+        }else{
+            throw new Error("Parameter is not a number, '.' or operator.")
         }
     }
 
