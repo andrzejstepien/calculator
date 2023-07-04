@@ -1,0 +1,11 @@
+button{
+    width:100px;
+    height:100px;
+    background-color: gray;
+    margin: 10px;
+    font-size: 30px;
+}
+
+#display{
+    font-size: 26px;;
+}
