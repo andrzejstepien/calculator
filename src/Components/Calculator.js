@@ -3,7 +3,7 @@ import NumPad from "./NumPad";
 import Operators from "./Operators";
 
 export default function Calculator(props){
-    const [input,setInput] = useState(0)
+    const [main,setMain] = useState(0)
     const [memory,setMemory] = useState(0)
     const [operation,setOperation] = useState("")
 
@@ -12,18 +12,19 @@ export default function Calculator(props){
     
 
     function handleInput(content){  
+
         const operations = {
             "+":(a,b)=>{return a+b},
             "-":(a,b)=>{return a-b},
             "X":(a,b)=>{return a*b},
             "/":(a,b)=>{return a/b},
         }
-        
+   
         if(typeof content === "number" ){
-            setInput(prev=>{return prev.toString()+content.toString()})
+            setMain(prev=>{return prev.toString()+content.toString()})
         }else{ //EXTRA CONDITION FOR DECIMAL, REGEX TO MAKE IT MAKE SENSE
-            setMemory(prev=>{operations[content](prev,input)})
-            setInput(0)
+            setMemory(prev=>{operations[content](prev,main)})
+            setMain(0)
             setOperation(content)
         }
     }
@@ -33,11 +34,11 @@ export default function Calculator(props){
         <>
         <div id="display">
             <p id="memory">{memory}</p>
-            <p id="input">{input}</p>
+            <p id="main">{main}</p>
             <p id="operation">{operation}</p>
         </div>
-        <NumPad handleInput={handleInput}/>
-        <Operators handleInput={handleInput}/>
+        <NumPad handlemain={handlemain}/>
+        <Operators handlemain={handlemain}/>
         </>
     )
 }
