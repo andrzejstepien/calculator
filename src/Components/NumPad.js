@@ -1,28 +1,32 @@
 import Button from "./Button"
 export default function NumPad(props){
     const map = {
-        zero:{number:0,callback:""},
-        one:{number:1,callback:""},
-        two:{number:2,callback:""},
-        three:{number:3,callback:""},
-        four:{number:4,callback:""},
-        five:{number:5,callback:""},
-        six:{number:6,callback:""},
-        seven:{number:7,callback:""},
-        eight:{number:8,callback:""},
-        nine:{number:9,callback:""}
+        zero:0,
+        one:1,
+        two:2,
+        three:3,
+        four:4,
+        five:5,
+        six:6,
+        seven:7,
+        eight:8,
+        nine:9
     }
     const numPad = Object.keys(map).map((e,i)=>{
         return(
-            <Button id={e} number={map[e].number} key={"numPad"+e} callback={map[e]}>
+            <Button 
+                id={e} 
+                content={map[e]} 
+                key={"numPad"+e} 
+                handleInput={props.handleInput}>
                 {i}
             </Button>
         )
     })
 
     return(
-        <>
+        <div className="numPad">
         {numPad}
-        </>
+        </div>
     )
 }

@@ -1,19 +1,23 @@
 import Button from "./Button";
 export default function Operators(props){
     const map = {
-        add:{symbol:"+",callback:""},
-        subtract:{symbol:"-",callback:""},
-        multiply:{symbol:"x",callback:""},
-        divide:{symbol:"/",callback:""},
-        decimal:{symbol:".",callback:""}
+        add:"+",
+        subtract:"-",
+        multiply:"x",
+        divide:"/",
+        decimal:"."
     }
 
     const operators = Object.keys(map).map(e=>{
-        return <Button  id={e} callback={map[e].callback} key={e}>
-                    {map[e].symbol}
+        return <Button  
+                id={e} 
+                content={map[e]}
+                handleInput={props.handleInput} 
+                key={e}>
+                    {map[e]}
                 </Button>
     })
 
-    return ( <>{operators}</>)
+    return ( <div className="operations-pad">{operators}</div>)
     
 }

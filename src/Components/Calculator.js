@@ -22,7 +22,7 @@ export default function Calculator(props){
    
         if(typeof content === "number" ){
             setMain(prev=>{return prev.toString()+content.toString()})
-        }else if(content == "."){
+        }else if(content === "."){
             //HANDLE DECIMAL WITH REGEX
         }else if(operations[content]){ 
             setMemory(prev=>{operations[content](prev,main)})
