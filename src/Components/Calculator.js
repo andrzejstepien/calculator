@@ -41,8 +41,8 @@ export default function Calculator(props){
             <p id="main">{main}</p>
             <p id="operation">{operation}</p>
         </div>
-        <NumPad handlemain={handlemain}/>
-        <Operators handlemain={handlemain}/>
+        <NumPad handlemain={handleInput}/>
+        <Operators handlemain={handleInput}/>
         </>
     )
 }
