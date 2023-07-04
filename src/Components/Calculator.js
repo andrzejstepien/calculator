@@ -7,12 +7,22 @@ export default function Calculator(props){
     const [memory,setMemory] = useState(0)
     const [operation,setOperation] = useState("")
 
+    
+        
+    
 
-    function handleInput(content){    
+    function handleInput(content){  
+        const operations = {
+            "+":(a,b)=>{return a+b},
+            "-":(a,b)=>{return a-b},
+            "X":(a,b)=>{return a*b},
+            "/":(a,b)=>{return a/b},
+        }
+        
         if(typeof content === "number" ){
             setInput(prev=>{return prev.toString()+content.toString()})
         }else{ //EXTRA CONDITION FOR DECIMAL, REGEX TO MAKE IT MAKE SENSE
-            setMemory(input)
+            setMemory(prev=>{operations[content](prev,input)})
             setInput(0)
             setOperation(content)
         }
