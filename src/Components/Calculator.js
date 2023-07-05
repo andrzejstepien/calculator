@@ -3,18 +3,18 @@ import KeyPad from "./KeyPad";
 
 export default function Calculator(props){
     const [main,setMain] = useState("0")
-    const [memory,setMemory] = useState("0")
+    const [mainInitialised, setMainInitialised] = useState(true)
+    const [memory,setMemory] = useState("")
     const [operation,setOperation] = useState("")
 
     const map = {
         conc:(numberString)=>{
             if(main[0]==="0"){
-                console.log("STARTS WITH ZERO")
                 setMain(prev=>prev.slice(1)+numberString)
             }else{
                 setMain(prev=>prev+numberString)
             }
-
+            setMainInitialised(false)
         },
 
         zero:function(){this.conc("0")},
@@ -38,34 +38,45 @@ export default function Calculator(props){
         multiply:function(){this.rcvOperator("multiply")},
         divide:function(){this.rcvOperator("divide")},
 
-        rcvOperator:(operator)=>{
-            setMemory(main)
-            setMain("0")
-            setOperation(operator)
+        rcvOperator:function(operator){           
+            const operatorAlreadyEntered = operation===""?false:true
+            console.log(operatorAlreadyEntered)
+            setOperation(operator)  
+            if(!mainInitialised && !operatorAlreadyEntered){
+                setMemory(prev=>{return this.calculate(main,prev)})
+            }else{
+                setMemory(main)
+            }
+                setMainInitialised(true)
+                setMain("0")          
         },
 
         operations:{
         add:(a,b)=>{return a+b},
-        subtract:(a,b)=>{return a-b},
+        subtract:(a,b)=>{return b-a},
         multiply:(a,b)=>{return a*b},
         divide:(a,b)=>{return b/a},
         }, 
         
         clear:()=>{
             setMain("0")
-            setMemory("0")
+            setMainInitialised(true)
+            setMemory("")
             setOperation("")
         },
         equals:function(){        
             setMain(prev=>{
-                return this.operations[operation](parseInt(prev),parseInt(memory)).toString()
+                return this.calculate(prev,memory)
             })
+            setMemory("")
             setOperation("")
+        },
+        calculate:function(a,b){
+            return this.operations[operation](parseFloat(a),parseFloat(b)).toString()
         }
     } 
 
     function handleInput(content){  
-        console.log("handling input!")
         map[content]()
     }
 
@@ -76,6 +87,7 @@ export default function Calculator(props){
             <p id="memory">{memory}</p>
             <p id="display">{main}</p>
             <p id="operation">{operation}</p>
+            <p>{JSON.stringify(mainInitialised)}</p>
         </div>
         <KeyPad handleInput={handleInput}/>
 
