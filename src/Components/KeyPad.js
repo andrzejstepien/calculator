@@ -1,6 +1,6 @@
 import Button from "./Button"
 export default function NumPad(props){
-    const map = {
+    const numberMap = {
         zero:0,
         one:1,
         two:2,
@@ -11,20 +11,27 @@ export default function NumPad(props){
         seven:7,
         eight:8,
         nine:9,
+        decimal:"."
+    }
+
+    const operatorMap = {
         add:"+",
         subtract:"-",
         multiply:"x",
         divide:"/",
-        decimal:"."
+        
     }
-    const numPad = Object.keys(map).map((e,i)=>{
+
+
+
+    const numPad = Object.keys(numberMap).map((e,i)=>{
         return(
             <Button 
                 id={e} 
-                content={map[e]} 
+                content={numberMap[e]} 
                 key={"numPad"+e} 
-                handleInput={props.handleInput}>
-                {i}
+                handleInput={()=>props.handleInput(e)}>
+                {numberMap[e]}
             </Button>
         )
     })

@@ -1,6 +1,6 @@
 export default function Button(props){
 
     return(
-        <button>{props.children}</button>
+        <button onClick={props.handleInput}>{props.children}</button>
     )
 }

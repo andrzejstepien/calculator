@@ -1,6 +1,5 @@
 import { useState } from "react";
-import NumPad from "./NumPad";
-import Operators from "./Operators";
+import KeyPad from "./KeyPad";
 
 export default function Calculator(props){
     const [main,setMain] = useState(0)
@@ -10,26 +9,26 @@ export default function Calculator(props){
     const map = {
         conc:(numberString)=>{setMain(prev=>prev+numberString)},
 
-        zero:()=>this.conc("0"),
-        one:()=>this.conc("1"),
-        two:()=>this.conc("2"),
-        three:()=>this.conc("3"),
-        four:()=>this.conc("4"),
-        five:()=>this.conc("5"),
-        six:()=>this.conc("6"),
-        seven:()=>this.conc("7"),
-        eight:()=>this.conc("8"),
-        nine:()=>this.conc("9"),
-        decimal:()=>{
+        zero:function(){this.conc("0")},
+        one:function(){this.conc("1")},
+        two:function(){this.conc("2")},
+        three:function(){this.conc("3")},
+        four:function(){this.conc("4")},
+        five:function(){this.conc("5")},
+        six:function(){this.conc("6")},
+        seven:function(){this.conc("7")},
+        eight:function(){this.conc("8")},
+        nine:function(){this.conc("9")},
+        decimal:function(){
             if(!/./g.test(main)){
                 this.conc(".")
             }  
         },
 
-        add:()=>this.rcvOperator("add"),
-        subtract:()=>this.rcvOperator("subtract"),
-        multiply:()=>this.rcvOperator("multiply"),
-        divide:()=>this.rcvOperator("divide"),
+        add:function(){this.rcvOperator("add")},
+        subtract:function(){this.rcvOperator("subtract")},
+        multiply:function(){this.rcvOperator("multiply")},
+        divide:function(){this.rcvOperator("divide")},
 
         rcvOperator:(operator)=>{
             setMemory(main)
@@ -47,6 +46,7 @@ export default function Calculator(props){
     } 
 
     function handleInput(content){  
+        console.log("handling input!")
         map[content]()
     }
 
@@ -58,8 +58,8 @@ export default function Calculator(props){
             <p id="main">{main}</p>
             <p id="operation">{operation}</p>
         </div>
-        <NumPad handlemain={handleInput}/>
-        <Operators handlemain={handleInput}/>
+        <KeyPad handleInput={handleInput}/>
+
         </>
     )
 }
