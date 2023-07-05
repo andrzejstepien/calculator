@@ -10,7 +10,12 @@ export default function NumPad(props){
         six:6,
         seven:7,
         eight:8,
-        nine:9
+        nine:9,
+        add:"+",
+        subtract:"-",
+        multiply:"x",
+        divide:"/",
+        decimal:"."
     }
     const numPad = Object.keys(map).map((e,i)=>{
         return(

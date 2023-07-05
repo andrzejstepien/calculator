@@ -7,30 +7,47 @@ export default function Calculator(props){
     const [memory,setMemory] = useState(0)
     const [operation,setOperation] = useState("")
 
-    
-        
-    
+    const map = {
+        conc:(numberString)=>{setMain(prev=>prev+numberString)},
+
+        zero:()=>this.conc("0"),
+        one:()=>this.conc("1"),
+        two:()=>this.conc("2"),
+        three:()=>this.conc("3"),
+        four:()=>this.conc("4"),
+        five:()=>this.conc("5"),
+        six:()=>this.conc("6"),
+        seven:()=>this.conc("7"),
+        eight:()=>this.conc("8"),
+        nine:()=>this.conc("9"),
+        decimal:()=>{
+            if(!/./g.test(main)){
+                this.conc(".")
+            }  
+        },
+
+        add:()=>this.rcvOperator("add"),
+        subtract:()=>this.rcvOperator("subtract"),
+        multiply:()=>this.rcvOperator("multiply"),
+        divide:()=>this.rcvOperator("divide"),
+
+        rcvOperator:(operator)=>{
+            setMemory(main)
+            setMain("0")
+            setOperation(operator)
+        },
+
+        operations:{
+        add:(a,b)=>{return a+b},
+        subtract:(a,b)=>{return a-b},
+        multiply:(a,b)=>{return a*b},
+        divide:(a,b)=>{return a/b},
+        },   
+        equals:()=>{setMain(prev=>{this.operations[operation](prev,memory)})}
+    } 
 
     function handleInput(content){  
-
-        const operations = {
-            "+":(a,b)=>{return a+b},
-            "-":(a,b)=>{return a-b},
-            "X":(a,b)=>{return a*b},
-            "/":(a,b)=>{return a/b},
-        }
-   
-        if(typeof content === "number" ){
-            setMain(prev=>{return prev.toString()+content.toString()})
-        }else if(content === "."){
-            //HANDLE DECIMAL WITH REGEX
-        }else if(operations[content]){ 
-            setMemory(prev=>{operations[content](prev,main)})
-            setMain(0)
-            setOperation(content)
-        }else{
-            throw new Error("Parameter is not a number, '.' or operator.")
-        }
+        map[content]()
     }
 
 
