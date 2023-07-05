@@ -2,12 +2,20 @@ import { useState } from "react";
 import KeyPad from "./KeyPad";
 
 export default function Calculator(props){
-    const [main,setMain] = useState(0)
-    const [memory,setMemory] = useState(0)
+    const [main,setMain] = useState("0")
+    const [memory,setMemory] = useState("0")
     const [operation,setOperation] = useState("")
 
     const map = {
-        conc:(numberString)=>{setMain(prev=>prev+numberString)},
+        conc:(numberString)=>{
+            if(main[0]==="0"){
+                console.log("STARTS WITH ZERO")
+                setMain(prev=>prev.slice(1)+numberString)
+            }else{
+                setMain(prev=>prev+numberString)
+            }
+
+        },
 
         zero:function(){this.conc("0")},
         one:function(){this.conc("1")},
@@ -20,7 +28,7 @@ export default function Calculator(props){
         eight:function(){this.conc("8")},
         nine:function(){this.conc("9")},
         decimal:function(){
-            if(!/./g.test(main)){
+            if(!/\./g.test(main)){
                 this.conc(".")
             }  
         },
@@ -40,9 +48,20 @@ export default function Calculator(props){
         add:(a,b)=>{return a+b},
         subtract:(a,b)=>{return a-b},
         multiply:(a,b)=>{return a*b},
-        divide:(a,b)=>{return a/b},
-        },   
-        equals:()=>{setMain(prev=>{this.operations[operation](prev,memory)})}
+        divide:(a,b)=>{return b/a},
+        }, 
+        
+        clear:()=>{
+            setMain("0")
+            setMemory("0")
+            setOperation("")
+        },
+        equals:function(){        
+            setMain(prev=>{
+                return this.operations[operation](parseInt(prev),parseInt(memory)).toString()
+            })
+            setOperation("")
+        }
     } 
 
     function handleInput(content){  
@@ -53,9 +72,9 @@ export default function Calculator(props){
 
     return(
         <>
-        <div id="display">
+        <div id="display-container">
             <p id="memory">{memory}</p>
-            <p id="main">{main}</p>
+            <p id="display">{main}</p>
             <p id="operation">{operation}</p>
         </div>
         <KeyPad handleInput={handleInput}/>

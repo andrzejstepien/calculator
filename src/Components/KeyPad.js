@@ -22,23 +22,37 @@ export default function NumPad(props){
         
     }
 
+    const functionMap = {
+        clear:"C",
+        equals:"="
+    }
 
+    function buildButtons(map){
+        return Object.keys(map).map((e,i)=>{
+            return(
+                <Button 
+                    id={e} 
+                    content={map[e]} 
+                    key={e+i} 
+                    handleInput={()=>props.handleInput(e)}>
+                    {map[e]}
+                </Button>
+            )
+        })
+    }
 
-    const numPad = Object.keys(numberMap).map((e,i)=>{
-        return(
-            <Button 
-                id={e} 
-                content={numberMap[e]} 
-                key={"numPad"+e} 
-                handleInput={()=>props.handleInput(e)}>
-                {numberMap[e]}
-            </Button>
-        )
-    })
 
     return(
-        <div className="numPad">
-        {numPad}
+        <div className="keypad">
+        <div className="num-pad">
+        {buildButtons(numberMap)}
+        </div>
+        <div className="operator-pad">
+        {buildButtons(operatorMap)}
+        </div>
+        <div className="function-pad">
+        {buildButtons(functionMap)}
+        </div>
         </div>
     )
 }
