@@ -3,7 +3,6 @@ import KeyPad from "./KeyPad";
 
 export default function Calculator(props){
     const [main,setMain] = useState("0")
-    const [mainInitialised, setMainInitialised] = useState(true)
     const [memory,setMemory] = useState("")
     const [operation,setOperation] = useState("")
 
@@ -14,7 +13,7 @@ export default function Calculator(props){
             }else{
                 setMain(prev=>prev+numberString)
             }
-            setMainInitialised(false)
+            
         },
 
         zero:function(){this.conc("0")},
@@ -38,17 +37,28 @@ export default function Calculator(props){
         multiply:function(){this.rcvOperator("multiply")},
         divide:function(){this.rcvOperator("divide")},
 
-        rcvOperator:function(operator){           
-            const operatorAlreadyEntered = operation===""?false:true
-            console.log(operatorAlreadyEntered)
-            setOperation(operator)  
-            if(!mainInitialised && !operatorAlreadyEntered){
-                setMemory(prev=>{return this.calculate(main,prev)})
-            }else{
-                setMemory(main)
+        rcvOperator:function(operator){      
+            if(main==="-"){
+                setMain("")
+            }else if(main!==""){
+                if(memory===""){
+                    setMemory(main)
+                }else{
+                    setMemory(prev=>{return this.calculate(main,prev)})
+                }
+                setMain("")
             }
-                setMainInitialised(true)
-                setMain("0")          
+            if(main==="" && operator==="subtract"){
+                setMain(prev=>{
+                    if(prev[0]!=="-"){
+                        return "-"+prev
+                    }                    
+                    })
+            }else{
+                setOperation(operator)
+            }
+
+            
         },
 
         operations:{
@@ -60,16 +70,18 @@ export default function Calculator(props){
         
         clear:()=>{
             setMain("0")
-            setMainInitialised(true)
             setMemory("")
             setOperation("")
         },
         equals:function(){        
-            setMain(prev=>{
-                return this.calculate(prev,memory)
-            })
-            setMemory("")
-            setOperation("")
+            if(operation!=="" && main !==""){
+                setMain(prev=>{
+                    return this.calculate(prev,memory)
+                })
+                setMemory("")
+                setOperation("")
+            }
+            
         },
         calculate:function(a,b){
             return this.operations[operation](parseFloat(a),parseFloat(b)).toString()
@@ -84,10 +96,9 @@ export default function Calculator(props){
     return(
         <>
         <div id="display-container">
-            <p id="memory">{memory}</p>
+            <p id="memory">{"memory: "+memory}</p>
             <p id="display">{main}</p>
-            <p id="operation">{operation}</p>
-            <p>{JSON.stringify(mainInitialised)}</p>
+            <p id="operation">{"operation: "+operation}</p>
         </div>
         <KeyPad handleInput={handleInput}/>
 
