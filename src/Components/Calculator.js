@@ -5,6 +5,7 @@ export default function Calculator(props) {
     const [main, setMain] = useState("0")
     const [memory, setMemory] = useState("")
     const [operation, setOperation] = useState("")
+    const [on, setOn] = useState(true)
 
     const map = {
         conc: (numberString) => {
@@ -83,6 +84,13 @@ export default function Calculator(props) {
             }
 
         },
+        on:()=>setOn(true),
+        off:()=>{
+            setOn(false)
+            setMain("0")
+            setMemory("")
+            setOperation("")
+        },
         calculate: function (a, b) {
             return this.operations[operation](parseFloat(a), parseFloat(b)).toString()
         }
@@ -97,7 +105,7 @@ export default function Calculator(props) {
         <div id="calculator">
             <div id="calculator-content">
                 <header><h1>CALCULATOR</h1></header>
-                <div id="display-container">
+                <div id="display-container" className={on?"on":"off"}>
                     <p id="memory">{memory}</p>
                     <p id="display">{main}</p>
                     <p id="operator">{operation}</p>

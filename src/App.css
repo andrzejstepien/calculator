@@ -59,7 +59,7 @@ background: linear-gradient(351deg, rgba(68,64,64,1) 0%, rgba(156,150,150,1) 100
     grid-area: display;
     justify-self: end;
     align-self: end;
-    height:100%;
+    height:9rem;
     width:100%;
     display: grid;
     grid-template-rows: 1fr 6fr 1fr;
@@ -76,6 +76,13 @@ background: linear-gradient(351deg, rgba(68,64,64,1) 0%, rgba(156,150,150,1) 100
     border-radius: 0.5rem;
     padding:0.5rem;
     box-shadow: 0.5rem 0.5rem 2rem inset;
+}
+
+.off{
+    filter: brightness(0.5);
+}
+.off > p{
+    display: none !important;
 }
 
 #display-container > p {
