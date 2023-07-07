@@ -9,12 +9,13 @@ export default function Calculator(props) {
 
     const map = {
         conc: (numberString) => {
-            if (main[0] === "0") {
-                setMain(prev => prev.slice(1) + numberString)
-            } else {
-                setMain(prev => prev + numberString)
+            if(main.length<=9){
+                if (main[0] === "0") {
+                    setMain(prev => prev.slice(1) + numberString)
+                } else {
+                    setMain(prev => prev + numberString)
+                }
             }
-
         },
 
         zero: function () { this.conc("0") },
@@ -92,7 +93,8 @@ export default function Calculator(props) {
             setOperation("")
         },
         calculate: function (a, b) {
-            return this.operations[operation](parseFloat(a), parseFloat(b)).toString()
+            const string = this.operations[operation](parseFloat(a), parseFloat(b)).toString()
+            return string.length<=9?string:string.slice(0,10)
         }
     }
 

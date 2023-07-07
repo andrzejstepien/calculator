@@ -43,6 +43,7 @@ background: linear-gradient(351deg, rgba(68,64,64,1) 0%, rgba(156,150,150,1) 100
 
 #calculator-content > header{
     grid-area: header;
+    align-self: center;
     font-family: 'Roboto', sans-serif;
     
 }
@@ -88,7 +89,6 @@ background: linear-gradient(351deg, rgba(68,64,64,1) 0%, rgba(156,150,150,1) 100
 #display-container > p {
     margin:auto 0;
     text-align: right;
-    line-height:1em;
     opacity: 0.8;
 }
 
@@ -141,11 +141,35 @@ background: linear-gradient(351deg, rgba(68,64,64,1) 0%, rgba(156,150,150,1) 100
 
 
 button{
+    background: linear-gradient(351deg, rgba(92,92,92,0.9) 0%, rgba(224,224,224,0.9) 100%);
+    background-blend-mode: multiply;
     
-    background: rgb(92,92,92);
-background: linear-gradient(351deg, rgba(92,92,92,1) 0%, rgba(224,224,224,1) 100%);
-    font-size: 30px;
+    font-size: 3rem;
     place-self: stretch;
     border-radius: 1.5rem;
+}
 
+.num-pad > button{
+    background-color: lightblue;
+
+}
+
+.operator-pad > button{
+    font-size: 3.5em;
+}
+
+.function-pad > button{
+    font-size: 2em;
+}
+
+#off{
+    background-color: #FF9B9B;
+}
+
+#on{
+    background-color: #CBFFA9;
+}
+
+#clear{
+    background-color: #FFD6A5;
 }
