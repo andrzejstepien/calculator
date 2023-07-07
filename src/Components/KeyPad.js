@@ -1,30 +1,36 @@
 import Button from "./Button"
 export default function NumPad(props){
     const numberMap = {
-        zero:0,
-        one:1,
-        two:2,
-        three:3,
-        four:4,
-        five:5,
-        six:6,
+        
         seven:7,
         eight:8,
         nine:9,
-        decimal:"."
+        four:4,
+        five:5,
+        six:6,
+        one:1,
+        two:2,
+        three:3,
+        zero:0,
+        decimal:".",
+        equals:"="
+        
     }
 
     const operatorMap = {
-        add:"+",
+        
         subtract:"-",
         multiply:"x",
         divide:"/",
+        add:"+",
         
     }
 
     const functionMap = {
+        on:"on",
+        off:"off",
         clear:"C",
-        equals:"="
+        
     }
 
     function buildButtons(map){
@@ -43,7 +49,7 @@ export default function NumPad(props){
 
 
     return(
-        <div className="keypad">
+        <>
         <div className="num-pad">
         {buildButtons(numberMap)}
         </div>
@@ -53,6 +59,6 @@ export default function NumPad(props){
         <div className="function-pad">
         {buildButtons(functionMap)}
         </div>
-        </div>
+        </>
     )
 }

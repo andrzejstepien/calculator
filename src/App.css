@@ -1,11 +1,144 @@
-button{
-    width:100px;
-    height:100px;
-    background-color: gray;
-    margin: 10px;
-    font-size: 30px;
+
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: calculator;
+    src: url("DS-DIGIB.TTF");
+}
+
+html{
+    font-size: 16px;
+}
+
+#calculator{
+    width:550px;
+    margin:auto;
+    background: rgb(68,64,64);
+background: linear-gradient(351deg, rgba(68,64,64,1) 0%, rgba(156,150,150,1) 100%);
+    padding: 1rem;
+    border-radius: 2rem;
+}
+
+#calculator-content{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: 1fr 1.6fr repeat(5,1fr);
+    grid-template-areas: 
+        "header header header header"
+        "display display display display"
+        "functions functions functions operators"
+        "numbers numbers numbers operators"
+        "numbers numbers numbers operators"
+        "numbers numbers numbers operators"
+        "numbers numbers numbers operators"
+        ;
+    gap:1rem;
+}
+
+
+#calculator-content > header{
+    grid-area: header;
+    font-family: 'Roboto', sans-serif;
+    
+}
+
+#calculator-content > header > h1{
+    font-size: 3rem;
+    margin:0.5rem auto;
+    color: aliceblue;
+
+    opacity: 0.8;
+}
+
+#display-container{
+    grid-area: display;
+    justify-self: end;
+    align-self: end;
+    height:100%;
+    width:100%;
+    display: grid;
+    grid-template-rows: 1fr 6fr 1fr;
+    grid-template-areas:
+        "memory"
+        "main"
+        "operator"
+    ;
+
+
+    background: linear-gradient(351deg, rgba(15,93,53,1) 0%, rgba(194,228,185,1) 100%);
+    font-family: 'VT323', monospace;    
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    padding:0.5rem;
+    box-shadow: 0.5rem 0.5rem 2rem inset;
+}
+
+#display-container > p {
+    margin:auto 0;
+    text-align: right;
+    line-height:1em;
+    opacity: 0.8;
 }
 
 #display{
-    font-size: 26px;;
+    font-family: calculator;
+    font-size: 6rem;
+    grid-area: main;
+    align-self: center;
+
+}
+
+#memory{
+    grid-area: memory;
+    align-self: center;
+    
+}
+
+#operator{
+    grid-area: operator;
+    align-self: center;
+    
+}
+
+
+
+
+
+.num-pad{
+    grid-area: numbers;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(4,1fr);
+    gap: 0.2rem;
+}
+
+.operator-pad{
+    grid-area: operators;
+    display: grid;
+    grid-template-rows: repeat(3,1fr) 2fr;
+    gap: 0.2rem;
+}
+
+.function-pad{
+    grid-area: functions;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 0.2rem;
+}
+
+
+
+button{
+    
+    background: rgb(92,92,92);
+background: linear-gradient(351deg, rgba(92,92,92,1) 0%, rgba(224,224,224,1) 100%);
+    font-size: 30px;
+    place-self: stretch;
+    border-radius: 1.5rem;
+
 }
